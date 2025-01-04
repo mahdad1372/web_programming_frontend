@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import wine_ads from './assets/images/wine_ads.jpg';
 import washing_ads from './assets/images/washing_ads.jpg';
+import { Link } from "react-router-dom";
 const HomePage = () => {
   const [category, setCategory] = useState([]);
   const [products, setProducts] = useState([]);
@@ -95,7 +96,7 @@ const HomePage = () => {
               </div>
               <div class="d-flex flex-row align-items-center justify-content-center">
               <div class="p-2">
-                <a>{product.name}</a>
+              <Link to={`/product/${product.product_id}`}>{product.name}</Link>
               </div>
               </div>
               <div class="d-flex flex-row align-items-center justify-content-center">

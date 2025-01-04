@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import Cookies from 'js-cookie';
-const LoginPage = () => {
+const Registerpage = () => {
   const [email, setEmail] = useState('');
+  const [fullName, setFullname] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
@@ -12,21 +11,17 @@ const LoginPage = () => {
     e.preventDefault(); // Prevent page reload on form submission
 
     try {
-      const response = await axios.post('http://localhost:8005/auth/login', {
+      const response = await axios.post('http://localhost:8005/auth/signup', {
+        fullName,
         email,
         password,
       });
 
       if (response.status === 200) {
-        console.log(response.data.token)
-        const token = response.data.token; // Assuming the JWT is returned as 'token'
-        Cookies.set('jwt', token, { expires: 7, path: '/', secure: true });
-        // Save the token in a cookie
-        document.cookie = `jwt=${token}; path=/; secure; HttpOnly`;
         // If successful, handle the response and redirect
         console.log('Login successful:', response.data);
-        setMessage('Login successful!');
-        navigate('/'); // Redirect to the "/" route
+        setMessage('Signup successful!');
+
       }
     } catch (error) {
       if (error.response) {
@@ -50,10 +45,28 @@ const LoginPage = () => {
           <form onSubmit={handleLogin}>
         <div class="d-flex flex-column login_column">
   <div>
-  <h2>Login page</h2>
+  <h2>Sign up page</h2>
   </div>
   <div>Please enter your detail</div>
+  <div className='mt-3'>
   <div>
+          <label>Fullname:</label>
+        </div>
+  </div>
+  <div>
+  <div>
+  <input
+            className='input_size'
+            type="Fullname"
+            value={fullName}
+            onChange={(e) => setFullname(e.target.value)}
+            required
+          />
+        </div>
+  </div>
+
+
+  <div className='mt-3'>
   <div>
           <label>Email:</label>
         </div>
@@ -88,12 +101,11 @@ const LoginPage = () => {
           </div>
         
         <div className='mt-3'>
-        <button className='submit_button_style' type="submit">Login</button>
+        <button className='submit_button_style' type="submit">Submit</button>
         </div>
-        <div>Don't have an account?
-          <Link to="/signup">signup</Link>
-          
-        </div>
+        {/* <div>Don't have an account?
+           signup
+        </div> */}
 </div>
 </form>
         </div>
@@ -106,4 +118,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default Registerpage;
