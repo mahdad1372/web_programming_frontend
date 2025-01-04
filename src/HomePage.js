@@ -63,7 +63,7 @@ const HomePage = () => {
               <div class="d-flex justify-content-center mb-2 text-center ">
     <div class="p-2 category_name">
       <a>
-      {category.name}
+      <Link to={`/category/${category.category_id}`}>{category.name}</Link>
         </a></div>
   </div>
              </div>

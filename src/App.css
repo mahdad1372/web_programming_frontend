@@ -349,3 +349,11 @@ cursor: pointer;
   width: 50%;
   padding: 5px;
 }
+.product_category_img_size{
+  cursor: pointer;
+}
+.product_category_img_size img{
+  justify-content: center;
+  width: 130px; 
+  height: 200px;
+}

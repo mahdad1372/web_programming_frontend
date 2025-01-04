@@ -5,6 +5,8 @@ import Footer from './components/footer';
 import Navbar from './components/Navbar';
 import Registerpage from './Registerpage';
 import ProductDetailPage from './Productdetail';
+import CategoryDetail from './Categorydetail';
+
 import './App.css';
 
 function App() {
@@ -16,6 +18,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<Registerpage />} />
         <Route path="/product/:id" element={<ProductDetailPage />} />
+        <Route path="/category/:id" element={<CategoryDetail />} />
       </Routes>
       <Footer />
     </Router>
