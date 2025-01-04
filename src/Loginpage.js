@@ -38,7 +38,58 @@ const LoginPage = () => {
 
   return (
     <div>
-      <h1>Login</h1>
+       <div className='container-fluid'>
+        <div className='row'>
+        <div className='col-lg-6'>
+        <div class="d-flex flex-column login_column">
+  <div>
+  <h2>Login page</h2>
+  </div>
+  <div>Please enter your detail</div>
+  <div>
+  <div>
+          <label>Email:</label>
+        </div>
+  </div>
+  <div>
+  <div>
+  <input
+className='input_size'
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+  </div>
+  <div className='mt-3'>
+  <div>
+          <label>Password:</label>
+        </div>
+  </div>
+  <div>
+  <input
+className='input_size'
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        <div className='mt-3'>
+        <button className='submit_button_style' type="submit">Login</button>
+        </div>
+        <div>Don't have an account?
+           signup
+        </div>
+</div>
+        </div>
+        <div className='col-lg-6 custom-bg'>
+         
+        </div>
+        </div>
+      </div>
+      {/* <h1>Login</h1>
       <form onSubmit={handleLogin}>
         <div>
           <label>Email:</label>
@@ -60,7 +111,7 @@ const LoginPage = () => {
         </div>
         <button type="submit">Login</button>
       </form>
-      {message && <p>{message}</p>}
+      {message && <p>{message}</p>} */}
     </div>
   );
 };
