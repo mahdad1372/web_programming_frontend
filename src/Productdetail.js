@@ -67,7 +67,45 @@ const ProductDetailPage = () => {
         setLoading(false);
       });
   }, [id]);
+  const handleAddToCart = async () => {
+    console.log(cart_id)
+    console.log(Number(quantity))
+    console.log(product.product_id)
+    if (!cart_id || !quantity || !product) {
+    
+     alert("Please ensure all fields are filled and try again.");
+      return;
+    }
 
+    const token = Cookies.get("jwt"); 
+
+    if (!token) {
+      alert("You must be logged in to add items to your cart.");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8005/cart_item/addcart",
+        {
+          cart_id,
+          product_id: product.product_id,
+          quantity: Number(quantity),
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      alert("Item added to cart successfully!");
+      console.log("Add to cart response:", response.data);
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      alert("Failed to add item to cart. Please try again.");
+    }
+  };
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
@@ -94,7 +132,9 @@ const ProductDetailPage = () => {
                      onChange={(e) => setquantity(e.target.value)} />
                     </div>
                     <div className="p-2">
-                        <button className="add_to_cart_specific">Add to cart</button>
+                        <button 
+                        onClick={handleAddToCart}
+                        className="add_to_cart_specific">Add to cart</button>
                     </div>
                     <div className="p-2 mt-2">
                     <h2>Product info</h2>
