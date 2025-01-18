@@ -6,11 +6,13 @@ import Navbar from './components/Navbar';
 import Registerpage from './Registerpage';
 import ProductDetailPage from './Productdetail';
 import CategoryDetail from './Categorydetail';
+import { AuthProvider } from './components/AuthContext';
 
 import './App.css';
 
 function App() {
   return (
+    <AuthProvider>
     <Router>
       <Navbar />
       <Routes>
@@ -22,6 +24,7 @@ function App() {
       </Routes>
       <Footer />
     </Router>
+    </AuthProvider>
   );
 }
 

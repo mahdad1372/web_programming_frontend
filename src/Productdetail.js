@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Cookies from 'js-cookie';
 import axios from 'axios';
@@ -7,8 +7,9 @@ const ProductDetailPage = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [user_id ,setuser_id] = useState(null)
-
+  const [user_id ,setuser_id] = useState(null);
+  const [quantity,setquantity] = useState(null);
+  const [cart_id,setcart_id] = useState(null);
   useEffect(() => {
     const fetchUserData = async () => {
         const token = Cookies.get('jwt'); // Retrieve the JWT token from cookies
@@ -27,9 +28,23 @@ const ProductDetailPage = () => {
 
 
           setuser_id(response.data.id);
+          try {
+            const addCartResponse = await axios.get(
+              `http://localhost:8005/cart/getcartbyuserid/${response.data.id}`,
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`, // Pass the token in the headers
+                },
+              }
+            );
+    
+            console.log('Cart created successfully:', addCartResponse.data[0].cart_id);
+            setcart_id(addCartResponse.data[0].cart_id)
+          } catch (addCartError) {
+            console.error('Error creating cart:', addCartError);
+          }
         } catch (error) {
           console.error('Error fetching user data:', error);
-        //   setError('Failed to fetch user data');
         }
       };
   
@@ -52,39 +67,6 @@ const ProductDetailPage = () => {
         setLoading(false);
       });
   }, [id]);
-//   const handleLogin = async (e) => {
-//     e.preventDefault(); // Prevent page reload on form submission
-
-//     try {
-//       const response = await axios.post('http://localhost:8005/auth/login', {
-//         email,
-//         password,
-//       });
-
-//       if (response.status === 200) {
-//         console.log(response.data.token)
-//         const token = response.data.token; // Assuming the JWT is returned as 'token'
-//         Cookies.set('jwt', token, { expires: 7, path: '/', secure: true });
-//         // Save the token in a cookie
-//         document.cookie = `jwt=${token}; path=/; secure; HttpOnly`;
-//         // If successful, handle the response and redirect
-//         console.log('Login successful:', response.data);
-//         setMessage('Login successful!');
-//         navigate('/'); // Redirect to the "/" route
-//       }
-//     } catch (error) {
-//       if (error.response) {
-//         console.error('Error response:', error.response.data);
-//         setMessage('Login failed: The username and password is incorrect.');
-//       } else if (error.request) {
-//         console.error('Error request:', error.request);
-//         setMessage('Login failed: No response from the server.');
-//       } else {
-//         console.error('Error:', error.message);
-//         setMessage('Login failed: The Email or password is incorrect.');
-//       }
-//     }
-//   };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -106,8 +88,10 @@ const ProductDetailPage = () => {
                       Price : {product.price} euro
                     </div>
                     <div className="p-2">
-                    <label for="quantity">Enter your age:</label>
-                    <input className="ml-2" type="number" id="age" name="age" min="1" max="120" step="1" />
+                    <label for="quantity">Enter number you want:</label>
+                    <input className="ml-2" type="number" id="age" name="age" min="1" max="120" step="1" 
+                    value={quantity}
+                     onChange={(e) => setquantity(e.target.value)} />
                     </div>
                     <div className="p-2">
                         <button className="add_to_cart_specific">Add to cart</button>

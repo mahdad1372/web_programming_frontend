@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState ,useContext} from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import {AuthContext} from './components/AuthContext';
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const { fetchUserData } = useContext(AuthContext);
   const navigate = useNavigate();
   const handleLogin = async (e) => {
     e.preventDefault(); // Prevent page reload on form submission

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import wine_ads from './assets/images/wine_ads.jpg';
 import washing_ads from './assets/images/washing_ads.jpg';
 import { Link } from "react-router-dom";
+import Navbar from "./components/Navbar";
 const HomePage = () => {
   const [category, setCategory] = useState([]);
   const [products, setProducts] = useState([]);
