@@ -15,7 +15,7 @@ const Navbar = () => {
     setIsOpen(!isOpen);
   };
 
-console.log(user)
+
   return (
     <nav className="navbar">
       <div className="logo">Brand</div>
@@ -35,6 +35,7 @@ console.log(user)
             <li><Link to="/signup">Signup</Link></li>
           </>
         )}
+        <li><a><Link to="/shoppingcart">Shopping cart</Link></a></li>
         <li><a>Services</a></li>
         <li><a>Contact</a></li>
       </ul>

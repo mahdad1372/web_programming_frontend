@@ -68,9 +68,7 @@ const ProductDetailPage = () => {
       });
   }, [id]);
   const handleAddToCart = async () => {
-    console.log(cart_id)
-    console.log(Number(quantity))
-    console.log(product.product_id)
+
     if (!cart_id || !quantity || !product) {
     
      alert("Please ensure all fields are filled and try again.");

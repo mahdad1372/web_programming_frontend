@@ -20,7 +20,7 @@ const LoginPage = () => {
       });
 
       if (response.status === 200) {
-        console.log(response.data.token)
+        
         const token = response.data.token; // Assuming the JWT is returned as 'token'
         Cookies.set('jwt', token, { expires: 7, path: '/', secure: true });
         // Save the token in a cookie
