@@ -7,6 +7,7 @@ import Registerpage from './Registerpage';
 import ProductDetailPage from './Productdetail';
 import CategoryDetail from './Categorydetail';
 import Shoppingcart from './Shoppingcart';
+import Adminepage from './Adminepage';
 import { AuthProvider } from './components/AuthContext';
 
 import './App.css';
@@ -20,6 +21,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<Registerpage />} />
+        <Route path="/admine" element={<Adminepage />} />
         <Route path="/shoppingcart" element={<Shoppingcart />} />
         <Route path="/product/:id" element={<ProductDetailPage />} />
         <Route path="/category/:id" element={<CategoryDetail />} />

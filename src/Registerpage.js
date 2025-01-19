@@ -6,15 +6,17 @@ const Registerpage = () => {
   const [fullName, setFullname] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const [role, setrole] = useState('customer');
   const navigate = useNavigate();
   const handleLogin = async (e) => {
     e.preventDefault(); // Prevent page reload on form submission
 
     try {
-      const response = await axios.post('http://localhost:8005/auth/signup', {
+      const response = await axios.post('http://localhost:8005/users/adduser', {
         fullName,
         email,
         password,
+        role
       });
 
       if (response.status === 200) {

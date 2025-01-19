@@ -23,12 +23,20 @@ const LoginPage = () => {
         
         const token = response.data.token; // Assuming the JWT is returned as 'token'
         Cookies.set('jwt', token, { expires: 7, path: '/', secure: true });
-        // Save the token in a cookie
         document.cookie = `jwt=${token}; path=/; secure; HttpOnly`;
-        // If successful, handle the response and redirect
-        console.log('Login successful:', response.data);
         setMessage('Login successful!');
-        navigate('/'); // Redirect to the "/" route
+        const user = await axios.get('http://localhost:8005/users/me', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if(user.data.role === "admin"){
+          navigate('/admine'); 
+        }else{
+          navigate('/');
+        }
+        // console.log(user.data.role)
+        // navigate('/'); 
       }
     } catch (error) {
       if (error.response) {

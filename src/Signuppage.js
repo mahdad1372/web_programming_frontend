@@ -6,15 +6,17 @@ const SignUpPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const [role, setrole] = useState('customer');
 
   const handleLogin = async (e) => {
     e.preventDefault(); // Prevent page reload on form submission
 
     try {
-      const response = await axios.post('http://localhost:8005/auth/signup', {
+      const response = await axios.post('http://localhost:8005/users/adduser', {
         fullName,
         email, // Automatically uses email: email due to ES6 shorthand
         password,
+        role
       });
 
       // If successful, handle the response
