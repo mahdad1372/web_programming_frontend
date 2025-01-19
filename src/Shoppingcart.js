@@ -6,8 +6,10 @@ import { AuthContext } from "../src/components/AuthContext";
 import "bootstrap-icons/font/bootstrap-icons.css";
 const Shoppingcart = () =>{
 
-    const [cartitems, setcartitems] = useState(null)
+    const [cartitems, setcartitems] = useState([])
+    const [totalpayment,settotalpayment] = useState(null)
     const fetchUserData = useCallback(async () => {
+    
         const token = Cookies.get('jwt');
    
     
@@ -28,7 +30,7 @@ const Shoppingcart = () =>{
               }
             );
             setcartitems(getresponse.data)
-            console.log(cartitems)
+            
           } catch (addCartError) {
           }
         } catch (error) {
@@ -54,9 +56,15 @@ const Shoppingcart = () =>{
       };
       useEffect(() => {
         fetchUserData();
+      
       }, [fetchUserData]);
     
+      const totalPrice = cartitems.reduce(
+        (acc, item) => acc + item.price * item.quantity,
+        0
+      );
 
+      console.log(totalPrice)
     return(
         <div>
            <div className="container">
@@ -104,7 +112,14 @@ const Shoppingcart = () =>{
               )}
             </div>
             <div className="col-lg-3">
-                <a>caio mahdad</a>
+            <div class="d-flex flex-row my_cart_title">
+                    <div class="p-2">
+                        <h2>Order Summery</h2>
+                    </div>
+            </div>
+            <div class="d-flex flex-row mt-3">
+                <div class="p-2">Total price :{totalPrice}$</div>
+                </div>
             </div>
             </div>
            </div>
